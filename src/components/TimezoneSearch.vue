@@ -34,15 +34,16 @@ const onKeyDown = (e: KeyboardEvent) => {
 </script>
 
 <template>
-  <div relative>
+  <div py1 px2 relative>
     <input v-model="input" type="text" placeholder="Search Timezone..."
       @keydown="onKeyDown" 
       text-xl p="x3 y2" border="~ base rounded" bg-transparent w-full />
     <div v-show="input"
-      left-0 right-0 absolute top-full 
-      bg-base p1 border="~ base" max-h-100 overflow-auto>
+      left-0 right-0 absolute top-full z-10
+      bg-base p1 border="~ base rounded" shadow max-h-100 overflow-auto>
       <button v-for="i, idx of searchResult" :key="i.refIndex" @click="add(i.item)"
         :class="idx === index ? 'bg-gray:5' : ''"
+        px2
         block w-full>
         <TimezoneItem :timezone="i.item" />
       </button>
