@@ -12,10 +12,14 @@ export default defineConfig({
   plugins: [
     Vue(),
     Components(),
-          AutoImport({
+    AutoImport({
       imports: [
         'vue'
-      ]
+      ],
+      dirs: [
+        './src/composables'
+      ],
+      vueTemplate: true
     }),
     UnoCSS({
       presets: [
