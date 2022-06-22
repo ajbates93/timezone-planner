@@ -12,7 +12,7 @@ export default defineConfig({
   plugins: [
     Vue(),
     Components(),
-    AutoImport({
+          AutoImport({
       imports: [
         'vue'
       ]
