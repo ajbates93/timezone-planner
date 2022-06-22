@@ -9,6 +9,8 @@
     "type-check": "vue-tsc --noEmit"
   },
   "dependencies": {
+    "fuse.js": "^6.6.2",
+    "timezones.json": "^1.6.1",
     "vue": "^3.2.37"
   },
   "devDependencies": {

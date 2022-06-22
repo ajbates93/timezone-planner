@@ -1,5 +1,8 @@
 {
-  "extends": "@vue/tsconfig/tsconfig.web.json",
+  // "extends": "@vue/tsconfig/tsconfig.web.json",
+  "lib": [
+    "es2019"
+  ],
   "include": ["env.d.ts", "src/**/*", "src/**/*.vue"],
   "compilerOptions": {
     "baseUrl": ".",
