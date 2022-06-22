@@ -25,7 +25,8 @@ const add = (t: Timezone) => {
 
 <template>
   <div relative>
-    <input v-model="input" type="text" placeholder="Search Timezone..." px2 py1 border="~ gray/15 rounded" bg-transparent w-full />
+    <input v-model="input" type="text" placeholder="Search Timezone..." 
+      text-xl p="x3 y2" border="~ base rounded" bg-transparent w-full />
     <div absolute top-full bg-gray-900 left-0 right-0 v-show="input">
       <button v-for="i of searchResult" 
       :key="i.refIndex" 
@@ -41,11 +42,3 @@ const add = (t: Timezone) => {
     </div>
   </div>
 </template>
-
-<style>
-html {
-  background: #222;
-  color: white;
-  color-scheme: dark;
-}
-</style>

@@ -4,7 +4,7 @@
 </script>
 
 <template>
-  <div>
+  <div p4>
     <pre>{{ zones }}</pre>
   </div>
 </template>
