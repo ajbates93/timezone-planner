@@ -4,6 +4,7 @@ import Fuse from 'fuse.js'
 import { timezones } from '../composables/data'
 import { addToTimezone } from '../composables/state';
 import { Timezone } from '../types';
+import TimezoneItem from './TimezoneItem.vue';
 
 const fuse = new Fuse(timezones, {
   keys: ['name']
@@ -12,7 +13,7 @@ const fuse = new Fuse(timezones, {
 const input = ref('')
 const index = ref(0)
 const searchResult = computed(() => {
-  return fuse.search(input.value)
+  return fuse.search(input.value).slice(0, 10)
 })
 
 const add = (t: Timezone) => {
@@ -21,23 +22,29 @@ const add = (t: Timezone) => {
   index.value = 0
 }
 
+const onKeyDown = (e: KeyboardEvent) => {
+  if (e.key === 'ArrowDown')
+    index.value = (index.value + 1) % searchResult.value.length
+  if (e.key === 'ArrowUp')
+    index.value = (index.value - 1 + searchResult.value.length) % searchResult.value.length
+  if (e.key === 'Enter') 
+    add(searchResult.value[index.value].item)
+}
+
 </script>
 
 <template>
   <div relative>
-    <input v-model="input" type="text" placeholder="Search Timezone..." 
+    <input v-model="input" type="text" placeholder="Search Timezone..."
+      @keydown="onKeyDown" 
       text-xl p="x3 y2" border="~ base rounded" bg-transparent w-full />
-    <div absolute top-full bg-gray-900 left-0 right-0 v-show="input">
-      <button v-for="i of searchResult" 
-      :key="i.refIndex" 
-      @click="add(i.item)"
-      flex gap2>
-        <div font-mono w-10 text-right>
-          {{i.item.offset}}
-        </div>
-        <div>
-          {{i.item.name}} 
-        </div>
+    <div v-show="input"
+      left-0 right-0 absolute top-full 
+      bg-base p1 border="~ base" max-h-100 overflow-auto>
+      <button v-for="i, idx of searchResult" :key="i.refIndex" @click="add(i.item)"
+        :class="idx === index ? 'bg-gray:5' : ''"
+        block w-full>
+        <TimezoneItem :timezone="i.item" />
       </button>
     </div>
   </div>
