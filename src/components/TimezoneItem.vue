@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { Timezone } from '../types';
-import { now, homeOffset } from '../composables/state'
+import { now, homeOffset, homeZone } from '../composables/state'
 
 const { timezone } = defineProps<{
   timezone: Timezone
@@ -31,7 +31,10 @@ const time = computed(() => formatter.format(now.value))
     flex flex-wrap gap2 py1>
     <div text-lg w-8 ma op80 font-bold text-center
       :title="`${rawOffset} GMT`">
-      {{ offset }}
+      <div text-xl text-center v-if="timezone.name === homeZone" i-carbon-home op50></div>
+      <div v-else>
+        {{ offset }}
+      </div>
     </div>
     <div flex="~ col" text-left flex-auto>
       <div text-lg>

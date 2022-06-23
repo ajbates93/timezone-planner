@@ -29,12 +29,16 @@ export const storage = useStorage<State>('world-time-state', {
 export const now = useNow({ interval: 30_000 })
 export const zoneNames = toRef(storage.value, 'zones')
 export const homeZone = toRef(storage.value, 'home')
-export const homeOffset = ref(timezones.find(x => x.name === homeZone.value).offset)
+export const homeOffset = computed(() => timezones.find(x => x.name === homeZone.value).offset)
 export const zones = computed(() => zoneNames.value.map(name => timezones.find(y => y.name === name)))
 
 export const addToTimezone = (timezone: Timezone) => {
   if (!zoneNames.value.includes(timezone.name))
     zoneNames.value.push(timezone.name)
+}
+
+export const setHomeZone = (timezone: Timezone) => {
+  homeZone.value = timezone.name
 }
 
 export const removeTimezone = (timezone: Timezone) => {
