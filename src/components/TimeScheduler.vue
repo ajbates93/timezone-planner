@@ -8,7 +8,9 @@ import TimezoneItem from './TimezoneItem.vue';
   <div>
     <div v-for="zone, idx of zones" :key="zone.name" 
       px4 py2 border="b base" relative>
-      <TimezoneItem :timezone="zone" />
+      <TimezoneItem :timezone="zone">
+        <TimeDial :timezone="zone" />
+      </TimezoneItem>
       <div absolute left="-6" top-0 bottom-0 text-xl flex="~ col" justify-center>
         <button @click="removeTimezone(zone)" icon-btn m--1px i-carbon-close title="Remove"></button>
         <button @click="moveTimezone(zone, -1)" icon-btn m--1px i-carbon-caret-up v-if="idx !== 0" title="Move Up"></button>
