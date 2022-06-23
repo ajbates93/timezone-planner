@@ -28,11 +28,11 @@ const time = computed(() => formatter.format(now.value))
 
 <template>
   <div
-    flex flex-wrap gap2 py1>
+    flex flex-wrap gap2 py1 items-center>
     <div text-lg w-8 ma op80 font-bold text-center
       :title="`${rawOffset} GMT`">
       <div text-xl text-center v-if="timezone.name === homeZone" i-carbon-home op50></div>
-      <div v-else>
+      <div text-sky6 v-else>
         {{ offset }}
       </div>
     </div>
@@ -43,7 +43,9 @@ const time = computed(() => formatter.format(now.value))
       </div>
       <div text-sm op50 leading-1em>{{ region }}</div>
     </div>
-    <div tabular-nums>{{time}}</div>
-    <slot></slot>
+    <div tabular-nums ma text-sm>
+      {{time}}
+    </div>
+    <slot />
   </div>
 </template>

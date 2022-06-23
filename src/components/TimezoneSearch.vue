@@ -5,6 +5,7 @@ import { timezones } from '../composables/data'
 import { addToTimezone } from '../composables/state';
 import { Timezone } from '../types';
 import TimezoneItem from './TimezoneItem.vue';
+import { onClickOutside } from '@vueuse/core';
 
 const fuse = new Fuse(timezones, {
   keys: ['name']
@@ -14,6 +15,15 @@ const input = ref('')
 const index = ref(0)
 const searchResult = computed(() => {
   return fuse.search(input.value).slice(0, 10)
+})
+
+const modal = ref<HTMLDivElement>()
+
+onClickOutside(modal, () => {
+  if (input) {
+    input.value = ''
+    index.value = 0
+  }
 })
 
 const add = (t: Timezone) => {
@@ -39,12 +49,15 @@ const onKeyDown = (e: KeyboardEvent) => {
       @keydown="onKeyDown" 
       text-xl p="x3 y2" border="~ base rounded" bg-transparent w-full />
     <div v-show="input"
+      ref="modal"
       left-0 right-0 absolute top-full z-10
       bg-base p1 border="~ base rounded" shadow max-h-100 overflow-auto>
       <button v-for="i, idx of searchResult" :key="i.refIndex" @click="add(i.item)"
         :class="idx === index ? 'bg-gray:5' : ''"
-        px2
-        block w-full>
+        px2 pb1
+        block w-full
+        hover="bg-gray/5"
+        border="b base">
         <TimezoneItem :timezone="i.item" />
       </button>
     </div>
