@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { Timezone } from '../types';
-import { now } from '../composables/state'
+import { now, currentOffset } from '../composables/state'
 
 const { timezone } = defineProps<{
   timezone: Timezone
@@ -15,7 +15,13 @@ const formatter = new Intl.DateTimeFormat('en-UK', {
 })
 const region = computed(() => timezone.name.split('/')[0].replace(/_/g, ' ')) 
 const location = computed(() => timezone.name.split('/')[1]?.replace(/_/g, ' ') || '')
-const offset = computed(() => timezone.offset > 0 ? `+${timezone.offset}` : timezone.offset)
+const offset = computed(() => {
+  let offset = timezone.offset - currentOffset.value
+  return offset > 0 ? `+${offset}` : offset
+})
+const rawOffset = computed(() => {
+  return timezone.offset > 0 ? `+${timezone.offset}` : timezone.offset
+})
 const time = computed(() => formatter.format(now.value))
 
 </script>
@@ -23,7 +29,8 @@ const time = computed(() => formatter.format(now.value))
 <template>
   <div
     flex flex-wrap gap2 py1>
-    <div text-lg w-8 ma>
+    <div text-lg w-8 ma op80 font-bold text-center
+      :title="`${rawOffset} GMT`">
       {{ offset }}
     </div>
     <div flex="~ col" text-left flex-auto>
