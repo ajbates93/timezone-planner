@@ -1,6 +1,6 @@
 # Timezone Planner
 
-This template should help get you started developing with Vue 3 in Vite.
+Based on the [What Time](https://github.com/antfu/what-time) series created by [Anthony Fu](https://github.com/antfu)
 
 ## Recommended IDE Setup
 
