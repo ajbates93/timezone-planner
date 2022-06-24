@@ -8,10 +8,10 @@
 </script>
 
 <template>
-  <div>
+  <div of-x-auto>
     <div v-for="zone, idx of zones" :key="zone.name" 
       px4 py2 border="b base" relative>
-      <TimezoneItem :timezone="zone">
+      <TimezoneItem :timezone="zone" w-max>
         <TimeDial :timezone="zone" />
       </TimezoneItem>
       <div absolute left="-6" top-0 bottom-0 text-xl flex="~ col" justify-center>
